@@ -11,6 +11,7 @@ if (debug) {
     (async () => {
             const res = await fetch("config.json");
             const config = await res.json();
+            console.log(config.api);
             RAW_OLLAMA_URL = config.api;
             OLLAMA_URL     =  `${RAW_OLLAMA_URL}/api/generate`;
     })();
@@ -22,7 +23,6 @@ async function CheckIsConnected() {
     try {
         const res = await fetch(RAW_OLLAMA_URL);
         const text = await res.text();
-        console.log(text);
         return text === "Ollama is running";;
     } catch (e) {
         console.error("Failed to check Ollama:", e);
