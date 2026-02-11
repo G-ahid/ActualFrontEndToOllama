@@ -1,4 +1,4 @@
-const debug = true;
+const debug = false;
 
 let RAW_OLLAMA_URL =  "";
 let OLLAMA_URL     =  "";
