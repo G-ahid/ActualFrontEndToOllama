@@ -1,29 +1,22 @@
-const debug = false;
-
+let ready = false;
 let RAW_OLLAMA_URL =  "";
 let OLLAMA_URL     =  "";
 
-if (debug) {
-    const OLLAMA_PORT = 11434;
-    RAW_OLLAMA_URL =  `http://${window.location.hostname}:${OLLAMA_PORT}`;
+async function init(callback) {
+    const res = await fetch("config.json");
+    const config = await res.json();
+    RAW_OLLAMA_URL = config.api;
     OLLAMA_URL     =  `${RAW_OLLAMA_URL}/api/generate`;
-}else {
-    (async () => {
-            const res = await fetch("config.json");
-            const config = await res.json();
-            console.log(config.api);
-            RAW_OLLAMA_URL = config.api;
-            OLLAMA_URL     =  `${RAW_OLLAMA_URL}/api/generate`;
-    })();
+    ready = true;
+    callback(await CheckIsConnected());
 }
 
 const model_name = "deepseek-r1:1.5b";
 
 async function CheckIsConnected() {
     try {
-        const res = await fetch(RAW_OLLAMA_URL);
-        const text = await res.text();
-        return text === "Ollama is running";;
+        const r = await fetch(RAW_OLLAMA_URL);
+        return true;
     } catch (e) {
         console.error("Failed to check Ollama:", e);
         return false;
