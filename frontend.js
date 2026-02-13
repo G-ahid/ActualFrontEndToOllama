@@ -33,7 +33,7 @@ init(connected => {
 
 input.addEventListener("keydown", async k => {
     if (k.key == "Enter") {
-        SetStatus("Waiting for response");
+        SetStatus("Thinking");
         input.disabled = true;
 
         const response = document.createElement("p");
@@ -46,10 +46,10 @@ input.addEventListener("keydown", async k => {
             const fullText = previous + chunk;
             responses.lastChild.dataset.raw = fullText; // store raw text
             responses.lastChild.innerHTML = marked.parse(fullText);
-            if (!fw) {
+            if (!fw && fullText.length > 0) {
                 SetStatus("AI is responding",false);
+                fw = true;
             }
-            fw = true;
         });
         
         input.value = "";

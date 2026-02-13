@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 PORT=8000
 LOGFILE="server.log"
 
