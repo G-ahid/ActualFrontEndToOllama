@@ -11,7 +11,7 @@ async function init(callback) {
     callback(await CheckIsConnected());
 }
 
-const model_name = "deepseek-r1:1.5b";
+const model_name = "smollm:135m";
 
 async function CheckIsConnected() {
     try {
